@@ -57,20 +57,20 @@ public class TrafficControlConfiguration {
         return new DefaultSpeedingViolationCalculator(legalCorrection, speedLimit, roadId, sectionLength);
     }
 
-//    @Bean
-//    public FineCollectionClient fineCollectionClient(final DaprClient daprClient) {
-//        return new DaprFineCollectionClient(daprClient);
-//    }
-    
     @Bean
-    public FineCollectionClient fineCollectionClient() {
-        return new KafkaFineCollectionClient();
+    public FineCollectionClient fineCollectionClient(final DaprClient daprClient) {
+        return new DaprFineCollectionClient(daprClient);
     }
     
 //    @Bean
-//    public DaprClient daprClient() {
-//        return new DaprClientBuilder()
-//                .withObjectSerializer(new JsonObjectSerializer())
-//                .build();
+//    public FineCollectionClient fineCollectionClient() {
+//        return new KafkaFineCollectionClient();
 //    }
+    
+    @Bean
+    public DaprClient daprClient() {
+        return new DaprClientBuilder()
+                .withObjectSerializer(new JsonObjectSerializer())
+                .build();
+    }
 }
