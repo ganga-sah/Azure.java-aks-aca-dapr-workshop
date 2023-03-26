@@ -40,18 +40,18 @@ public class FineCollectionConfiguration {
         return new RestTemplate();
     }
     
-//    @Bean
-//    public VehicleRegistrationClient vehicleRegistrationClient(final DaprClient daprClient) {
-//        return new DaprVehicleRegistrationClient(daprClient, vehicleRegistrationServiceName);
-//    }
+    @Bean
+    public VehicleRegistrationClient vehicleRegistrationClient(final DaprClient daprClient) {
+        return new DaprVehicleRegistrationClient(daprClient, vehicleRegistrationServiceName);
+    }
     
-   @Bean
-    public VehicleRegistrationClient vehicleRegistrationClient(final RestTemplate restTemplate) {
-        return new DefaultVehicleRegistrationClient(restTemplate, vehicleInformationAddress);
-   }
+//   @Bean
+//    public VehicleRegistrationClient vehicleRegistrationClient(final RestTemplate restTemplate) {
+//        return new DefaultVehicleRegistrationClient(restTemplate, vehicleInformationAddress);
+//   }
     
-//    @Bean
-//    public DaprClient daprClient() {
-//        return new DaprClientBuilder().build();
-//    }
+    @Bean
+    public DaprClient daprClient() {
+        return new DaprClientBuilder().build();
+    }
 }
