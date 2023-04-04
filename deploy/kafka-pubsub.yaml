@@ -8,7 +8,7 @@ spec:
   version: v1
   metadata:
   - name: brokers # Required. Kafka broker connection setting
-    value: my-release-kafka.default.svc.cluster.local:9092
+    value: my-cluster-kafka-brokers.default.svc.cluster.local:9092
   - name: consumerGroup # Optional. Used for input bindings.
     value: "test"
   # - name: clientID # Optional. Used as client tracing ID by Kafka brokers.

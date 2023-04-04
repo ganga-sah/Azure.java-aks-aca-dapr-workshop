@@ -7,11 +7,11 @@ spec:
   version: v1
   metadata:
   - name: redisHost
-    value: <replaceWithRedisHostName>:<replaceWithRedisSSLPort>
+    value: redis-master:6379
   - name: redisPassword
-    value: <replaceWithPrimaryKey>
+    value: rV3wGe5jvd%
   - name: enableTLS
-    value: "true"
+    value: "false"
 scopes:
   - trafficcontrolservice
   - finecollectionservice
