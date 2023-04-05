@@ -19,7 +19,8 @@ spec:
       annotations:
         dapr.io/enabled: "true"
         dapr.io/app-id: "trafficcontrolservice"
-        dapr.io/app-port: "6000"        
+        dapr.io/app-port: "6000"
+        dapr.io/config: "appconfig"
     spec:
       containers:
       - image: geepsah/traffic-control-service:latest

@@ -20,6 +20,7 @@ spec:
         dapr.io/enabled: "true"
         dapr.io/app-id: "vehicleregistrationservice"
         dapr.io/app-port: "6002"
+        dapr.io/config: "appconfig"
     spec:
       containers:
       - image: geepsah/vehicle-registration-service:latest

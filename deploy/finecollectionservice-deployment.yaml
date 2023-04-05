@@ -20,6 +20,7 @@ spec:
         dapr.io/enabled: "true"
         dapr.io/app-id: "finecollectionservice"
         dapr.io/app-port: "6001"
+        dapr.io/config: "appconfig"
     spec:
       containers:
       - image: geepsah/fine-collection-service:latest
