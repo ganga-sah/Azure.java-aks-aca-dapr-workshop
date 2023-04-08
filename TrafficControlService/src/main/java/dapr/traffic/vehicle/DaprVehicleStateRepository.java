@@ -23,14 +23,16 @@ public class DaprVehicleStateRepository implements VehicleStateRepository {
     public VehicleState saveVehicleState(VehicleState vehicleState) {
         daprClient.saveState(DAPR_STORE_NAME, vehicleState.licenseNumber(), vehicleState).block();
         Mono<io.dapr.client.domain.State<VehicleState>> result = daprClient.getState(DAPR_STORE_NAME, vehicleState.licenseNumber(), VehicleState.class);
-        log.info("result", result);
-        return result.block().getValue();
+        VehicleState vehicleStateResult = result.block().getValue();
+        log.info("saveVehicleState result=" + vehicleStateResult);
+        return vehicleStateResult;
     }
 
     @Override
     public Optional<VehicleState> getVehicleState(String licenseNumber) {
     	Mono<io.dapr.client.domain.State<VehicleState>> result = daprClient.getState(DAPR_STORE_NAME, licenseNumber, VehicleState.class);
-        log.info("result", result);
-        return Optional.ofNullable(result.block().getValue());
+        VehicleState vehicleStateResult = result.block().getValue();
+        log.info("getVehicleState result=" + vehicleStateResult);
+        return Optional.ofNullable(vehicleStateResult);
     }
 }
