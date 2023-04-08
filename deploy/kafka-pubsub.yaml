@@ -2,13 +2,13 @@ apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: pubsub
-  namespace: default
+  namespace: strimzi
 spec:
   type: pubsub.kafka
   version: v1
   metadata:
   - name: brokers # Required. Kafka broker connection setting
-    value: my-cluster-kafka-brokers.default.svc.cluster.local:9092
+    value: kafka-cluster-kafka-brokers.strimzi.svc.cluster.local:9092
   - name: consumerGroup # Optional. Used for input bindings.
     value: "test"
   # - name: clientID # Optional. Used as client tracing ID by Kafka brokers.
