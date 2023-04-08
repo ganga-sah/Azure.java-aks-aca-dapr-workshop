@@ -52,6 +52,11 @@ public class TrafficControlConfiguration {
         return new InMemoryVehicleStateRepository();
     }
 
+//    @Bean
+//    public VehicleStateRepository vehicleStateRepository(final DaprClient daprClient) {
+//        return new DaprVehicleStateRepository(daprClient);
+//    }
+
     @Bean
     public SpeedingViolationCalculator speedingViolationCalculator() {
         return new DefaultSpeedingViolationCalculator(legalCorrection, speedLimit, roadId, sectionLength);
