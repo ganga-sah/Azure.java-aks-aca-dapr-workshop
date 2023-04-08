@@ -2,9 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: dapr-traffic-control
 resources:
-  - redis-statestore.yaml
-  - kafka-pubsub.yaml
-  - appconfig.yaml
+  - dapr-appconfig-zipkin.yaml
+  - dapr-pubsub-kafka.yaml
+  - dapr-statestore-redis.yaml
   - zipkin.yaml
   - finecollectionservice-deployment.yaml
   - finecollectionservice-service.yaml
