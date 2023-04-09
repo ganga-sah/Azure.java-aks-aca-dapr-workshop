@@ -1,3 +1,3 @@
 set -x
-kubectl create secret generic license-key --from-file ./license-key
-kubectl get secret -n dapr-traffic-control -o jsonpath="{.items[].data.license-key}" | base64 -d
+kubectl create secret generic license-key -n traffic-control --from-file ./license-key
+kubectl get secret -n traffic-control -o jsonpath="{.items[].data.license-key}" | base64 -d
