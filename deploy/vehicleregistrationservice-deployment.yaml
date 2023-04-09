@@ -21,6 +21,7 @@ spec:
         dapr.io/app-id: "vehicleregistrationservice"
         dapr.io/app-port: "6002"
         dapr.io/config: "appconfig"
+        dapr.io/log-level: "debug"
     spec:
       containers:
       - image: geepsah/vehicle-registration-service:latest

@@ -4,6 +4,7 @@ namespace: dapr-traffic-control
 resources:
   - dapr-appconfig-zipkin.yaml
   - dapr-pubsub-kafka.yaml
+  - dapr-secretstore-k8s.yaml
   - dapr-statestore-redis.yaml
   - zipkin.yaml
   - finecollectionservice-deployment.yaml

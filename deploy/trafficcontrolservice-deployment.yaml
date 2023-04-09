@@ -21,6 +21,7 @@ spec:
         dapr.io/app-id: "trafficcontrolservice"
         dapr.io/app-port: "6000"
         dapr.io/config: "appconfig"
+        dapr.io/log-level: "debug"
     spec:
       containers:
       - image: geepsah/traffic-control-service:latest

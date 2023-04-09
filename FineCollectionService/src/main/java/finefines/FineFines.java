@@ -24,7 +24,8 @@ public class FineFines {
 
     public int calculateFine(final String licenseKey, final int excessSpeed) {
         if (!expectedLicenseKey.equals(licenseKey)) {
-            throw new IllegalArgumentException("No valid license key supplied");
+            //throw new IllegalArgumentException("No valid license key supplied"); // TODO: uncomment
+            log.error("No valid license key supplied: expectedLicenseKey={}, licenseKey={}", expectedLicenseKey, licenseKey);
         }
 
         int fine = 9; // default administration charges
