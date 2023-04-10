@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-#namespace: dapr-traffic-control
+#namespace: traffic-control
 resources:
   - dapr-appconfig-zipkin.yaml
   - dapr-pubsub-kafka.yaml

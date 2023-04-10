@@ -1,3 +1,4 @@
 set -x
-kubectl scale --replicas=0 deployment.apps/simulation -n traffic-control
+#N="-n traffic-control"
+kubectl scale --replicas=0 deployment.apps/simulation $N
 

@@ -22,9 +22,25 @@ public class DaprFineCalculator implements FineCalculator {
                 throw new RuntimeException("'license-key' is not part of the secret store.");
             }
             this.fineCalculatorLicenseKey = licenseKeySecret.get("license-key");
+            log.info("Try1: fineCalculatorLicenseKey="+fineCalculatorLicenseKey);
         } catch (Exception e) {
-            this.fineCalculatorLicenseKey = null;
-            log.error("Error in licenseKeySecret:", e);
+            // Retry
+            try {
+                log.error("Sleeping for 5 seconds");
+                Thread.sleep(5000);
+            } catch (InterruptedException ie) {
+            }
+            try {
+                final Map<String, String> licenseKeySecret = daprClient.getSecret("secretstore", "license-key").block();
+                if (licenseKeySecret == null || licenseKeySecret.isEmpty()) {
+                    throw new RuntimeException("'license-key' is not part of the secret store.");
+                }
+                this.fineCalculatorLicenseKey = licenseKeySecret.get("license-key");
+                log.info("Try2: fineCalculatorLicenseKey="+fineCalculatorLicenseKey);
+            } catch (Exception e2) {
+                this.fineCalculatorLicenseKey = null;
+                log.error("Error in licenseKeySecret:", e2);
+            }
         }
         this.fineFines = new FineFines();
     }

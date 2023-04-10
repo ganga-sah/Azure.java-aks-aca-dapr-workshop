@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.util.Base64;
 import java.util.Properties;
 
 public class FineFines {
@@ -26,6 +28,7 @@ public class FineFines {
         if (!expectedLicenseKey.equals(licenseKey)) {
             //throw new IllegalArgumentException("No valid license key supplied"); // TODO: uncomment
             log.error("No valid license key supplied: expectedLicenseKey={}, licenseKey={}", expectedLicenseKey, licenseKey);
+            log.info("Length: " + expectedLicenseKey.length() + ", " + (licenseKey!=null? licenseKey.length(): -1) + ", Hash: " + getHash(expectedLicenseKey) + ", " + getHash(licenseKey));
         }
 
         int fine = 9; // default administration charges
@@ -51,5 +54,22 @@ public class FineFines {
         }
 
         return fine;
+    }
+
+    public static String getHash(String plainText) {
+        if (plainText == null) {
+            return null;
+        } else if (plainText.length() == 0) {
+            return "";
+        } else {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA-1");
+                md.update(plainText.getBytes("UTF-8"));
+                byte[] raw = md.digest();
+                return (Base64.getEncoder().encode(raw).toString());
+            } catch (Exception var4) {
+            }
+        }
+        return null;
     }
 }
