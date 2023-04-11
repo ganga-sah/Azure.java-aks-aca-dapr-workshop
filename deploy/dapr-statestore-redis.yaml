@@ -6,14 +6,19 @@ spec:
   type: state.redis
   version: v1
   metadata:
+  - name: actorStateStore
+    value: "true"
   - name: redisHost
     value: redis-master.redis.svc.cluster.local:6379
   - name: redisPassword
     value: "4qlCNS0okJ"
-    #secretKeyRef:
-    #  name: redis
-    #  key: redis-password
-  - name: actorStateStore
-    value: "true"
+# Commented out secretKeyRef below to use hardcoded redisPassword above as
+# not sure how dapr can get redis-password from namespace=redis
+# while state.redis is deployed in a different namespace
+#    secretKeyRef:
+#      name: redis
+#      key: redis-password
+#auth:
+#  secretStore: kubernetes
 scopes:
   - trafficcontrolservice
