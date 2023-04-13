@@ -7,4 +7,4 @@ spec:
     samplingRate: "1"
     zipkin:
       #endpointAddress: "http://zipkin.default.svc.cluster.local:9411/api/v2/spans"
-      endpointAddress: "http://zipkin.traffic-control.svc.cluster.local:9411/api/v2/spans"
+      endpointAddress: "http://zipkin.dev-traffic-control.svc.cluster.local:9411/api/v2/spans"
