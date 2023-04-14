@@ -2,4 +2,4 @@
 
 set -x
 #kubectl apply $N -k ./base 
-kubectl apply -k ./dev-traffic-control 
+kubectl apply -k ./overlays/minikube
