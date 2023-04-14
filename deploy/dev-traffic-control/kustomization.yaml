@@ -2,3 +2,26 @@ namespace: dev-traffic-control
 bases:
 - ../base
 #namespace: dev-traffic-control
+
+configMapGenerator:
+  - name: environment
+    envs:
+      - environment.env
+generatorOptions:
+  disableNameSuffixHash: true
+
+# Extract the variables out of the ConfigMap and into Kustomize variables
+vars:
+  - name: NAMESPACE_ZIPKIN
+    objref:
+      kind: ConfigMap
+      name: environment
+      apiVersion: v1
+      #namespace: dev-traffic-control
+    fieldref:
+      fieldpath: data.NAMESPACE_ZIPKIN
+# Add any additional variables that are used
+
+# Add additional varReference entries if needed (custom CRDs, extra fields to substitute into, etc.)
+configurations:
+  - configuration.yaml
