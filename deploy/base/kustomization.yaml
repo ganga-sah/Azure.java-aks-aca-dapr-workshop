@@ -1,13 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-#configMapGenerator:
-#- name: environment
-#  envs:
-#  - environment.env
-#generatorOptions:
-#  disableNameSuffixHash: true
-
 resources:
   - dapr-appconfig-zipkin.yaml
   - dapr-pubsub-kafka.yaml
@@ -23,3 +16,93 @@ resources:
   - trafficcontrolservice-service.yaml
   - vehicleregistrationservice-deployment.yaml
   - vehicleregistrationservice.yaml
+
+configMapGenerator:
+  - envs:
+      - environment.env
+    name: environment
+generatorOptions:
+  disableNameSuffixHash: true
+
+#configurations:
+#- configuration.yaml
+
+replacements:
+  - source:
+      fieldPath: data.NAMESPACE_ZIPKIN
+      kind: ConfigMap
+      name: environment
+      version: v1
+    targets:
+      - fieldPaths:
+          - spec.tracing.zipkin.endpointAddress
+        options:
+          delimiter: .
+          index: 1
+        select:
+          group: dapr.io
+          kind: Configuration
+          name: appconfig
+          version: v1alpha1
+
+  - source:
+      fieldPath: data.REDIS_HOST
+      kind: ConfigMap
+      name: environment
+      version: v1
+    targets:
+      - fieldPaths:
+          - spec.metadata.[name=redisHost].value
+        options:
+          index: 1
+        select:
+          group: dapr.io
+          kind: Component
+          name: statestore
+          version: v1alpha1
+  - source:
+      fieldPath: data.REDIS_PASSWORD
+      kind: ConfigMap
+      name: environment
+      version: v1
+    targets:
+      - fieldPaths:
+          - spec.metadata.[name=redisPassword].value
+        options:
+          index: 1
+        select:
+          group: dapr.io
+          kind: Component
+          name: statestore
+          version: v1alpha1
+
+  - source:
+      fieldPath: data.KAFKA_BROKER_CONNECTION
+      kind: ConfigMap
+      name: environment
+      version: v1
+    targets:
+      - fieldPaths:
+          - spec.metadata.[name=brokers].value
+        options:
+          index: 1
+        select:
+          group: dapr.io
+          kind: Component
+          name: pubsub
+          version: v1alpha1
+  - source:
+      fieldPath: data.KAFKA_CONSUMER_GROUP
+      kind: ConfigMap
+      name: environment
+      version: v1
+    targets:
+      - fieldPaths:
+          - spec.metadata.[name=consumerGroup].value
+        options:
+          index: 1
+        select:
+          group: dapr.io
+          kind: Component
+          name: pubsub
+          version: v1alpha1
