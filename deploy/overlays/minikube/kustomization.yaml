@@ -91,3 +91,34 @@ replacements:
         kind: Component
         name: pubsub
         version: v1alpha1
+
+- source:
+    fieldPath: data.REDIS_HOST
+    kind: ConfigMap
+    name: environment
+    version: v1
+  targets:
+    - fieldPaths:
+        - spec.metadata.[name=redisHost].value
+      options:
+        index: 1
+      select:
+        group: dapr.io
+        kind: Component
+        name: pubsub
+        version: v1alpha1
+- source:
+    fieldPath: data.REDIS_PASSWORD
+    kind: ConfigMap
+    name: environment
+    version: v1
+  targets:
+    - fieldPaths:
+        - spec.metadata.[name=redisPassword].value
+      options:
+        index: 1
+      select:
+        group: dapr.io
+        kind: Component
+        name: pubsub
+        version: v1alpha1
