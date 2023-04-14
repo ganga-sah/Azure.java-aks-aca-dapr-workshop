@@ -1,3 +1,4 @@
+namespace: dev-traffic-control
 bases:
 - ../base
-namespace: dev-traffic-control
+#namespace: dev-traffic-control

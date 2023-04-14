@@ -26,8 +26,8 @@ public class DaprFineCalculator implements FineCalculator {
         } catch (Exception e) {
             // Retry
             try {
-                log.error("Sleeping for 5 seconds");
-                Thread.sleep(5000);
+                log.error("Sleeping for 10 seconds");
+                Thread.sleep(10000); // TODO: Optimize this in a retry sleep interval of say 5 seconds
             } catch (InterruptedException ie) {
             }
             try {
