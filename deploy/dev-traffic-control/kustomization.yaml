@@ -32,3 +32,65 @@ replacements:
       kind: Configuration
       name: appconfig
       version: v1alpha1
+
+- source:
+    fieldPath: data.REDIS_HOST
+    kind: ConfigMap
+    name: environment
+    version: v1
+  targets:
+    - fieldPaths:
+        - spec.metadata.[name=redisHost].value
+      options:
+        index: 1
+      select:
+        group: dapr.io
+        kind: Component
+        name: statestore
+        version: v1alpha1
+- source:
+    fieldPath: data.REDIS_PASSWORD
+    kind: ConfigMap
+    name: environment
+    version: v1
+  targets:
+    - fieldPaths:
+        - spec.metadata.[name=redisPassword].value
+      options:
+        index: 1
+      select:
+        group: dapr.io
+        kind: Component
+        name: statestore
+        version: v1alpha1
+
+- source:
+    fieldPath: data.KAFKA_BROKER_CONNECTION
+    kind: ConfigMap
+    name: environment
+    version: v1
+  targets:
+    - fieldPaths:
+        - spec.metadata.[name=brokers].value
+      options:
+        index: 1
+      select:
+        group: dapr.io
+        kind: Component
+        name: pubsub
+        version: v1alpha1
+- source:
+    fieldPath: data.KAFKA_CONSUMER_GROUP
+    kind: ConfigMap
+    name: environment
+    version: v1
+  targets:
+    - fieldPaths:
+        - spec.metadata.[name=consumerGroup].value
+      options:
+        index: 1
+      select:
+        group: dapr.io
+        kind: Component
+        name: pubsub
+        version: v1alpha1

@@ -9,9 +9,9 @@ spec:
   - name: actorStateStore
     value: "true"
   - name: redisHost
-    value: redis-master.redis.svc.cluster.local:6379
+    value: ""
   - name: redisPassword
-    value: "4qlCNS0okJ"
+    value: ""
 # Commented out secretKeyRef below to use hardcoded redisPassword above as
 # not sure how dapr can get redis-password from namespace=redis
 # while state.redis is deployed in a different namespace

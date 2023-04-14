@@ -8,9 +8,9 @@ spec:
   version: v1
   metadata:
   - name: brokers # Required. Kafka broker connection setting
-    value: kafka-cluster-kafka-brokers.strimzi.svc.cluster.local:9092
+    value: ""
   - name: consumerGroup # Optional. Used for input bindings.
-    value: "test"
+    value: ""
   # - name: clientID # Optional. Used as client tracing ID by Kafka brokers.
   #   value: "my-dapr-app-id"
   - name: authRequired
