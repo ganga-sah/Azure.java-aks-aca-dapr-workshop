@@ -1,27 +1,34 @@
 namespace: dev-traffic-control
-bases:
-- ../base
-#namespace: dev-traffic-control
 
 configMapGenerator:
-  - name: environment
-    envs:
-      - environment.env
+- envs:
+  - environment.env
+  name: environment
 generatorOptions:
   disableNameSuffixHash: true
 
-# Extract the variables out of the ConfigMap and into Kustomize variables
-vars:
-  - name: NAMESPACE_ZIPKIN
-    objref:
-      kind: ConfigMap
-      name: environment
-      apiVersion: v1
-      #namespace: dev-traffic-control
-    fieldref:
-      fieldpath: data.NAMESPACE_ZIPKIN
-# Add any additional variables that are used
+#configurations:
+#- configuration.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 
-# Add additional varReference entries if needed (custom CRDs, extra fields to substitute into, etc.)
-configurations:
-  - configuration.yaml
+resources:
+- ../base
+
+replacements:
+- source:
+    fieldPath: data.NAMESPACE_ZIPKIN
+    kind: ConfigMap
+    name: environment
+    version: v1
+  targets:
+  - fieldPaths:
+    - spec.tracing.zipkin.endpointAddress
+    options:
+      delimiter: .
+      index: 1
+    select:
+      group: dapr.io
+      kind: Configuration
+      name: appconfig
+      version: v1alpha1
