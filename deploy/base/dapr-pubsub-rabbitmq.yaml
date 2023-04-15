@@ -6,7 +6,7 @@ spec:
   type: pubsub.rabbitmq
   version: v1
   metadata:
-  - name: host
+  - name: connectionString
     value: ""
   - name: durable
     value: "false"

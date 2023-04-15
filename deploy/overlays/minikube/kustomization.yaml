@@ -93,13 +93,13 @@ replacements:
         version: v1alpha1
 
 - source:
-    fieldPath: data.RABBITMQ_HOST
+    fieldPath: data.RABBITMQ_CONNECTION_STRING
     kind: ConfigMap
     name: environment
     version: v1
   targets:
     - fieldPaths:
-        - spec.metadata.[name=host].value
+        - spec.metadata.[name=connectionString].value
       options:
         index: 1
       select:
