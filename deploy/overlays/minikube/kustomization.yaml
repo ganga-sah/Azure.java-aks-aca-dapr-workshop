@@ -13,6 +13,7 @@ resources:
 - ../../base
 
 replacements:
+# appconfig
 - source:
     fieldPath: data.NAMESPACE_ZIPKIN
     kind: ConfigMap
@@ -30,6 +31,7 @@ replacements:
       name: appconfig
       version: v1alpha1
 
+# state.redis
 - source:
     fieldPath: data.REDIS_HOST
     kind: ConfigMap
@@ -61,6 +63,7 @@ replacements:
         name: statestore
         version: v1alpha1
 
+# pusub.kafka
 - source:
     fieldPath: data.KAFKA_BROKER_CONNECTION
     kind: ConfigMap
@@ -92,6 +95,7 @@ replacements:
         name: pubsub
         version: v1alpha1
 
+# pusub.rabbitmq
 - source:
     fieldPath: data.RABBITMQ_CONNECTION_STRING
     kind: ConfigMap
@@ -108,6 +112,7 @@ replacements:
         name: pubsub
         version: v1alpha1
 
+# pusub.redis
 - source:
     fieldPath: data.REDIS_HOST
     kind: ConfigMap
@@ -137,4 +142,36 @@ replacements:
         group: dapr.io
         kind: Component
         name: pubsub
+        version: v1alpha1
+
+# configuration.redis
+- source:
+    fieldPath: data.REDIS_HOST
+    kind: ConfigMap
+    name: environment
+    version: v1
+  targets:
+    - fieldPaths:
+        - spec.metadata.[name=redisHost].value
+      options:
+        index: 1
+      select:
+        group: dapr.io
+        kind: Component
+        name: configstore
+        version: v1alpha1
+- source:
+    fieldPath: data.REDIS_PASSWORD
+    kind: ConfigMap
+    name: environment
+    version: v1
+  targets:
+    - fieldPaths:
+        - spec.metadata.[name=redisPassword].value
+      options:
+        index: 1
+      select:
+        group: dapr.io
+        kind: Component
+        name: configstore
         version: v1alpha1

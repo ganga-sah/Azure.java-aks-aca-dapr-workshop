@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - dapr-appconfig-zipkin.yaml
+  - dapr-configstore-redis.yaml
 #  - dapr-pubsub-kafka.yaml
   - dapr-pubsub-redis.yaml
 #  - dapr-pubsub-rabbitmq.yaml

@@ -16,6 +16,12 @@ spec:
       creationTimestamp: null
       labels:
         app: simulation
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "simulationservice"
+        # dapr.io/app-port: "6003"
+        dapr.io/config: "appconfig"
+        dapr.io/log-level: "debug"
     spec:
       containers:
       - image: geepsah/simulation:latest
