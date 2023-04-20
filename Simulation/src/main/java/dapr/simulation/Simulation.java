@@ -1,6 +1,10 @@
 package dapr.simulation;
 
 import dapr.simulation.events.VehicleRegistered;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -13,10 +17,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
-@Component
-public class Simulation implements CommandLineRunner {
+//@Component
+@RestController
+public class Simulation /*implements CommandLineRunner*/ {
     private static final Logger log = LoggerFactory.getLogger(Simulation.class);
-
+    private static final String cronBindingPath = "/cron";
     private final ExecutorService executorService;
     private final Random random;
     private final SimulationSettings simulationSettings;
@@ -31,8 +36,11 @@ public class Simulation implements CommandLineRunner {
         this.trafficControlService = trafficControlService;
     }
 
-    @Override
-    public void run(final String... args) {
+//    @Override
+//    public void run(final String... args) {
+    @PostMapping(path = cronBindingPath, consumes = MediaType.ALL_VALUE)
+    public ResponseEntity<String> run() throws Exception {
+        log.info("Started processing batch *******************************************************************");
         var numLanes = simulationSettings.getNumLanes();
         IntStream.range(0, numLanes).forEach(lane -> executorService.submit(() -> {
             try {
@@ -41,6 +49,7 @@ public class Simulation implements CommandLineRunner {
                 log.info("Simulation {} was interrupted", lane);
             }
         }));
+        return ResponseEntity.ok("Finished processing batch");
     }
 
     void start(final int entryLane, final int numLanes) throws InterruptedException {
@@ -48,19 +57,20 @@ public class Simulation implements CommandLineRunner {
         var entryDelay = simulationSettings.getEntryDelay();
         var exitDelay = simulationSettings.getExitDelay();
 
-        while (true) {
+        int vehicleEntryNum = 0;
+        while (vehicleEntryNum++ < 2) {
             TimeUnit.MILLISECONDS.sleep(randomNumberBetween(entryDelay.getMinimum(), entryDelay.getMaximum()));
 
             var licenseNumber = generateRandomLicenseNumber();
             var entry = new VehicleRegistered(entryLane, licenseNumber, LocalDateTime.now());
-            log.info("Simulated ENTRY of vehicle with license number {} in lane {}", licenseNumber, entryLane);
+            log.info("{}:{}: Simulated ENTRY of vehicle with license number {} in lane {}", entryLane, vehicleEntryNum, licenseNumber, entryLane);
             trafficControlService.sendVehicleEntry(entry);
 
             TimeUnit.SECONDS.sleep(randomNumberBetween(exitDelay.getMinimum(), exitDelay.getMaximum()));
             var exitLane = random.nextInt(numLanes);
             var exit = new VehicleRegistered(exitLane, licenseNumber, LocalDateTime.now());
             trafficControlService.sendVehicleExit(exit);
-            log.info("Simulated  EXIT of vehicle with license number {} in lane {}", licenseNumber, exitLane);
+            log.info("{}:{}: Simulated  EXIT of vehicle with license number {} in lane {}", entryLane, vehicleEntryNum, licenseNumber, exitLane);
         }
     }
 

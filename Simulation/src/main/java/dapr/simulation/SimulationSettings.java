@@ -90,8 +90,8 @@ public class SimulationSettings {
                     System.out.println("Configuration update for " + CONFIGURATION_ITEM + ": {'value':'" + this.numLanes + "'}");
                 }
             });
-            System.out.println("Waiting for 20 seconds for Configuration update");
-            Thread.sleep(20000);
+            System.out.println("Waiting for 2 seconds for Configuration update");
+            Thread.sleep(2000);
             // Unsubscribe from config changes
             UnsubscribeConfigurationResponse unsubscribe = client
                     .unsubscribeConfiguration(subscriptionId, DAPR_CONFIGURATON_STORE).block();
