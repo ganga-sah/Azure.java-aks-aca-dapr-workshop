@@ -16,6 +16,7 @@ resources:
   - finecollectionservice-deployment.yaml
   - finecollectionservice-service.yaml
   - simulation-deployment.yaml
+  - simulationservice-service.yaml
   - trafficcontrolservice-deployment.yaml
   - trafficcontrolservice-service.yaml
   - vehicleregistrationservice-deployment.yaml

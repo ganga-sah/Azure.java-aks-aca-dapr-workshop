@@ -1,4 +1,5 @@
 set -x
+set -e
 REPO=geepsah
 SERVICE=fine-collection-service
 mvn spring-boot:build-image

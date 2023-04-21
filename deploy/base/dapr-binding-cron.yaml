@@ -8,4 +8,4 @@ spec:
   version: v1
   metadata:
   - name: schedule
-    value: "@every 30m" # valid cron schedule
+    value: "@every 30s" # valid cron schedule

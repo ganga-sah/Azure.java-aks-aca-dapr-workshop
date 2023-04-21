@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
 
 //@Component
 @RestController
-public class Simulation /*implements CommandLineRunner*/ {
+public class Simulation implements CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(Simulation.class);
     private static final String cronBindingPath = "/cron";
     private final ExecutorService executorService;
@@ -36,11 +36,17 @@ public class Simulation /*implements CommandLineRunner*/ {
         this.trafficControlService = trafficControlService;
     }
 
-//    @Override
-//    public void run(final String... args) {
     @PostMapping(path = cronBindingPath, consumes = MediaType.ALL_VALUE)
-    public ResponseEntity<String> run() throws Exception {
-        log.info("Started processing batch *******************************************************************");
+    public ResponseEntity<String> batch() {
+        log.info("Started batch() *******************************************************************");
+        this.run();
+        log.info("Finished batch() *******************************************************************");
+        return ResponseEntity.ok("Finished batch()");
+    }
+
+    @Override
+    public void run(final String... args) {
+        log.info("Started run() *******************************************************************");
         var numLanes = simulationSettings.getNumLanes();
         IntStream.range(0, numLanes).forEach(lane -> executorService.submit(() -> {
             try {
@@ -49,7 +55,7 @@ public class Simulation /*implements CommandLineRunner*/ {
                 log.info("Simulation {} was interrupted", lane);
             }
         }));
-        return ResponseEntity.ok("Finished processing batch");
+        log.info("Finished run() *******************************************************************");
     }
 
     void start(final int entryLane, final int numLanes) throws InterruptedException {

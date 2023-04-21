@@ -1,4 +1,5 @@
 set -x
+set -e
 REPO=geepsah
 SERVICE=simulation
 mvn spring-boot:build-image
